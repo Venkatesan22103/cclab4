@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA</title>
+</head>
+<body>
+    <center>
+        <h1>RSA Algorithm</h1>
+        <h3>Implement RSA Algorithm using Html and Javascript</h3>
+        <table>
+            <tr>
+                <td>Enter First Prime Number</td>
+                <td><input type="number" value="7" id='p'></td>
+            </tr>
+            <tr>
+                <td>Enter Second Prime Number</td>
+                <td><input type="number" value="11" id='q'></td>
+            </tr>
+            <tr>
+                <td>Enter Message(Cipher text)</td>
+                <td><input type="number" value="8" id='msg'></td>
+            </tr>
+            <tr>
+                <td>Public key</td>
+                <td><p id="public"></p></td>
+            </tr>
+            <tr>
+                <td>Exponent</td>
+                <td><p id="exponent"></p></td>
+            </tr>
+            <tr>
+                <td>Private key</td>
+                <td><p id="private"></p></td>
+            </tr>
+            <tr>
+                <td>Cipher Text</td>
+                <td><p id="cipher"></p></td>
+            </tr>
+            <tr>
+                <td><button onclick="func()">Apply RSA</button></td>
+            </tr>
+
+        </table>
+    </center>
+</body>
+<script type="text/javascript">
+    function func(){
+        var p,q,n,e,gcd,t,d,i;
+        gcd = function(a,b){return(!b)?a:gcd(b,a%b);};
+        p = document.getElementById('p').value;
+        q = document.getElementById('q').value;
+        msg = document.getElementById('msg').value;
+        n = p*q;
+        t = (p-1)*(q-1);
+        for(e=2;e<t;e++){
+            if(gcd(e,t)==1){
+                break;
+            }
+        }
+        for(i=0;i<10;i++){
+            x = 1+i*t;
+            if(x%e == 0){
+                d = x/e;
+                break;
+            }
+        }
+        ctt = Math.pow(msg,e).toFixed(0);
+        ct = ctt%n;
+        document.getElementById('public').innerHTML = n;
+        document.getElementById('exponent').innerHTML = e;
+        document.getElementById('private').innerHTML = d;
+        document.getElementById('cipher').innerHTML = ct;
+    }
+</script>
+
+</html>
